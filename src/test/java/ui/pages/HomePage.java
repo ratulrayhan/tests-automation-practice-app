@@ -13,17 +13,9 @@ public class HomePage extends PageHelper {
     }
 
 
-    public HomePage openTab() {
+    public HomePage openEveningDress() {
         mouseOver(mouseOverWomen);
-        return this;
-    }
-
-    public HomePage clickTab() {
         clickOnElement(clickOnEvening);
-        return this;
-    }
-
-    public HomePage verify() {
         isElementDisplayed(verifyEveningDress);
         return this;
     }

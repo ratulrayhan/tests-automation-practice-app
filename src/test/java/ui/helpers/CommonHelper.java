@@ -85,6 +85,7 @@ public class CommonHelper {
         }
         return env;
     }
+
     public static void captureScreenshot() {
         String fileName = "selenium-screen-capture-" + new SimpleDateFormat("MMddyyyymmsss").format(new Date()) + ".png";
         String filePathWithFileName = getSeleniumDownloadDirectoryPath() + fileName;

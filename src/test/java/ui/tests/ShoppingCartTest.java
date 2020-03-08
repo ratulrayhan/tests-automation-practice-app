@@ -1,8 +1,6 @@
 package ui.tests;
 
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.Select;
 import ui.helpers.TestHelper;
 import ui.pages.HomePage;
 import ui.pages.ShoppingCartSummaryPage;
@@ -11,19 +9,19 @@ public class ShoppingCartTest extends TestHelper {
 
     @Test
     public void VerifyShoppingCart() {
+        String expectedMessage = "Product successfully added to your shopping cart";
 
         HomePage homePage = new HomePage(driver);
-        homePage.openTab();
-        homePage.clickTab();
+        homePage.openEveningDress();
 
         ShoppingCartSummaryPage shoppingCartSummaryPage = new ShoppingCartSummaryPage(driver);
+        shoppingCartSummaryPage.addingToCart();
 
-        shoppingCartSummaryPage.clickPrintedDress();
+        String actualStatusMessage = shoppingCartSummaryPage.getSuccessMessage();
 
-//        shoppingCartSummaryPage.clickQuantity();
-//        shoppingCartSummaryPage.clickSize();
-//        shoppingCartSummaryPage.choosingSize();
-//        shoppingCartSummaryPage.clickColor();
-       shoppingCartSummaryPage.addCart();
+        verifyTrue("Failed - after click on Checkout message not matched", actualStatusMessage.contains(expectedMessage));
+
+        shoppingCartSummaryPage.checkOut();
+        shoppingCartSummaryPage.continueShop();
     }
 }
