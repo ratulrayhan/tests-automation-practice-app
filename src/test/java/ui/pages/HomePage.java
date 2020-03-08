@@ -12,6 +12,7 @@ public class HomePage extends PageHelper {
         super(webDriver);
     }
 
+
     public HomePage openTab() {
         mouseOver(mouseOverWomen);
         return this;

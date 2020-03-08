@@ -5,12 +5,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static org.junit.Assert.fail;
+import static ui.helpers.CommonHelper.captureScreenshot;
 
 public abstract class PageHelper {
 
@@ -22,18 +26,36 @@ public abstract class PageHelper {
 
     public void setField(By byElement, String value) {
         waitUntilVisibilityOfElementLocatedBy(5, byElement);
-        driver.findElement(byElement).clear();
-        driver.findElement(byElement).sendKeys(value);
+        findByWebElement(byElement).clear();
+        findByWebElement(byElement).sendKeys(value);
     }
+
+    public WebElement findByWebElement(By byElement) {
+        WebElement webElement = null;
+        try {
+            waitUntilVisibilityOfElementLocatedBy(5, byElement);
+            webElement = driver.findElement(byElement);
+        } catch (Exception e) {
+            captureScreenshot();
+            fail("Failed locate element using By: " + byElement + "\nCheck Screenshot \n" + e.getStackTrace());
+        }
+        return webElement;
+    }
+
+    public void selectElement(By byElement) {
+        waitUntilVisibilityOfElementLocatedBy(5, byElement);
+        new Select(findByWebElement(byElement));
+    }
+
 
     public void clickOnElement(By byElement) {
         new WebDriverWait(driver, 5).until(ExpectedConditions.elementToBeClickable(byElement));
-        driver.findElement(byElement).click();
+        findByWebElement(byElement).click();
     }
 
     public void mouseOver(By byElement) {
         waitUntilVisibilityOfElementLocatedBy(5, byElement);
-        new Actions(driver).moveToElement(driver.findElement(byElement)).perform();
+        new Actions(driver).moveToElement(findByWebElement(byElement)).perform();
     }
 
     public boolean isElementDisplayed(By byElement) {
@@ -53,7 +75,7 @@ public abstract class PageHelper {
 
     public String getString(By byElement) {
         waitUntilVisibilityOfElementLocatedBy(5, byElement);
-        return driver.findElement(byElement).getText();
+        return findByWebElement(byElement).getText();
     }
 
     public List<String> getStringList(By byElements) {

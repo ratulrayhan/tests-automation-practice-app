@@ -32,18 +32,18 @@ public class TestHelper {
         loginPage.login(username, password);
     }
 
-    @After
-    public void teardownDriver() {
-        driver.quit();
-    }
-
-    public void verifyEquals(String message, String expected, String actual) {
-        try {
-            assertEquals(message, expected, actual);
-        } catch (AssertionError e) {
-            errorCollector.addError(e);
-        }
-    }
+//    @After
+//    public void teardownDriver() {
+//        driver.quit();
+//    }
+//
+//    public void verifyEquals(String message, String expected, String actual) {
+//        try {
+//            assertEquals(message, expected, actual);
+//        } catch (AssertionError e) {
+//            errorCollector.addError(e);
+//        }
+//    }
 
     public void verifyTrue(String message, boolean actual) {
         try {
