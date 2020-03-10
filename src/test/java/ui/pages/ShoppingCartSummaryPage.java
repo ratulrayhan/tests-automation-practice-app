@@ -33,7 +33,6 @@ public class ShoppingCartSummaryPage extends PageHelper {
     }
 
     public String getSuccessMessage() {
-
         return getString(verifySuccessfulAdding);
     }
 

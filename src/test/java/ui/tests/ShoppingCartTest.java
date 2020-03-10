@@ -1,14 +1,17 @@
 package ui.tests;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import ui.helpers.TestHelper;
 import ui.pages.HomePage;
 import ui.pages.ShoppingCartSummaryPage;
 import ui.pages.VerifyItemDetailPage;
+import ui.pages.VerifyOrderHistoryPage;
 
 public class ShoppingCartTest extends TestHelper {
 
     @Test
+    @Ignore
     public void VerifyShoppingCart() {
         String expectedMessage = "Product successfully added to your shopping cart";
 
@@ -27,6 +30,7 @@ public class ShoppingCartTest extends TestHelper {
     }
 
     @Test
+    @Ignore
     public void verifyItemDetail() {
 
         VerifyItemDetailPage verifyItemDetailPage = new VerifyItemDetailPage(driver);
@@ -51,5 +55,30 @@ public class ShoppingCartTest extends TestHelper {
 
         verifyItemDetailPage.addCart();
         verifyItemDetailPage.closeModal();
+    }
+
+    @Test
+    public void verifyOrderHistory() {
+        VerifyOrderHistoryPage verifyOrderHistory = new VerifyOrderHistoryPage(driver);
+        verifyOrderHistory.clickHistory();
+
+        String actualStatusMessage = verifyOrderHistory.getReference();
+        verifyTrue("Failed - after click on History, Item reference number not matched", actualStatusMessage.contains("UINHFHCDL"));
+
+        String actualStatusMessage1 = verifyOrderHistory.getOrderDate();
+        verifyTrue("Failed - after click on History, Purchase date not matched", actualStatusMessage1.contains("03/09/2020"));
+
+        String actualStatusMessage2 = verifyOrderHistory.getOrderPrice();
+        verifyTrue("Failed - after click on History, Purchase Price not matched", actualStatusMessage2.contains("$18.51"));
+
+        String actualStatusMessage3 = verifyOrderHistory.getOrderPayment();
+        verifyTrue("Failed - after click on History, Payment method not matched", actualStatusMessage3.contains("Payment by check"));
+
+        String actualStatusMessage4 = verifyOrderHistory.getOrderStatus();
+        verifyTrue("Failed - after click on History, Purchase Status not matched", actualStatusMessage4.contains("On backorder"));
+
+        verifyOrderHistory.clickInvoice();
+        verifyOrderHistory.clickDetails();
+        verifyOrderHistory.clickReorder();
     }
 }
