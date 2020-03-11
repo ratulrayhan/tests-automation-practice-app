@@ -29,7 +29,7 @@ public class CommonHelper {
 
     public static WebDriver loadWebDriver() {
 
-        String driverType = "chrome";
+        String driverType = System.getenv("DRIVER_TYPE").toLowerCase();
         if ("chrome".equalsIgnoreCase(driverType)) {
 
             WebDriverManager.chromedriver().setup();

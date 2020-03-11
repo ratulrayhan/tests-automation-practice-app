@@ -5,22 +5,22 @@ import org.openqa.selenium.WebDriver;
 import ui.helpers.PageHelper;
 
 public class HomePage extends PageHelper {
-    private By mouseOverWomen = By.xpath("//a[@title='Women']");
-    private By clickOnEvening = By.xpath("//*[@id=\"block_top_menu\"]/ul/li[1]/ul/li[2]/ul/li[2]/a");
-    private By verifyEveningDress = By.className("cat-name");
+    private By womenLink = By.xpath("//a[@title='Women']");
+    private By eveningDressesLink = By.xpath("//*[@id=\"block_top_menu\"]/ul/li[1]/ul/li[2]/ul/li[2]/a");
+    private By eveningDressText = By.className("cat-name");
     public HomePage(WebDriver webDriver) {
         super(webDriver);
     }
 
 
     public HomePage openEveningDress() {
-        mouseOver(mouseOverWomen);
-        clickOnElement(clickOnEvening);
-        isElementDisplayed(verifyEveningDress);
+        mouseOver(womenLink);
+        clickOnElement(eveningDressesLink);
+        isElementDisplayed(eveningDressText);
         return this;
     }
 
     public String getHomePageMessage() {
-        return getString(verifyEveningDress);
+        return getString(eveningDressText);
     }
 }
