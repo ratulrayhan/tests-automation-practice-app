@@ -42,10 +42,10 @@ public abstract class PageHelper {
         return webElement;
     }
 
-//    public void selectElement(By byElement) {
-//        waitUntilVisibilityOfElementLocatedBy(5, byElement);
-//        new Select(findByWebElement(byElement)).selectByIndex();
-//    }
+    public void selectElement(By byElement, String valueToBeSelected) {
+        new WebDriverWait(driver, 5).until(ExpectedConditions.presenceOfElementLocated(byElement));
+        new Select(findByWebElement(byElement)).selectByVisibleText(valueToBeSelected.trim());
+    }
 
 
     public void clickOnElement(By byElement) {
