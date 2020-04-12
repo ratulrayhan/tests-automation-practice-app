@@ -1,1 +1,1 @@
-# tests-automation-practice-app-
+# tests-automation-practice-app
